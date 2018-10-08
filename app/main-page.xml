@@ -1,0 +1,20 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
+    xmlns:chart="nativescript-ui-chart"
+    navigatingTo="onNavigatingTo" class="page">
+
+    <Page.actionBar>
+        <ActionBar title="TensorFlow JS in NativeScript" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+
+    <StackLayout class="p-20">
+        <Button class="btn btn-primary"
+            textTransform="none"
+            tap="gotoRegression"
+            text="Goto Regression Sample"></Button>
+        <Button class="btn btn-primary"
+            tap="gotoClassification"
+            textTransform="none"
+            text="Goto Classification Sample"></Button>
+    </StackLayout>
+</Page>
