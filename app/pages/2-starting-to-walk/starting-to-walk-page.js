@@ -1,9 +1,8 @@
 import { WebViewInterface } from 'nativescript-webview-interface';
 import { fromObject } from 'data/observable';
+import { webViewHandler } from '~/shared/webview-util';
 let webViewInterface;
 let page;
-
-import { isAndroid } from 'platform';
 
 export function loaded({ object: page }) {
   page.bindingContext = fromObject({
@@ -20,7 +19,7 @@ export function onNavigatedTo(args) {
 
     page = args.object;
 
-    console.log("setting up webview");
+    console.log('setting up webview');
     setupWebViewInterface(page);
 }
 
@@ -51,8 +50,8 @@ export function onTrain({ object: btn }) {
 
   webViewInterface.callJSFunction('train', {
     x_input: [1, 2, 3, 4],
-    y_input: [2, 4, 6, 8],
-    epochs: 1000
+    y_input: [1, 3, 5, 7],
+    epochs: 10
   }, function(result) {
     ctx.trainingComplete = true;
   });
@@ -68,35 +67,4 @@ export function onPredict({ object: btn }) {
   });
 }
 
-export function webViewLoaded (args) {
-  const webview = args.object;
-  const TNSWebViewClient =
-    android.webkit.WebViewClient.extend({
-      shouldOverrideUrlLoading: function (view, url) {
-        if (url != null && url.startsWith("http://")) {
-          // use openUrl form utils module to open the page in a browser
-          return true;
-        } else {
-          return false;
-        }
-      }
-
-    });
-  const TNSWebChromeClient =
-    android.webkit.WebChromeClient.extend({
-      onPermissionRequest: function (request) {
-        request.grant(request.getResources());
-      }
-    });
-  if (isAndroid) {
-    webview.android.getSettings().setDisplayZoomControls(false);
-    webview.android.getSettings().setBuiltInZoomControls(false);
-    webview.android.getSettings().setAllowFileAccessFromFileURLs(true);
-    webview.android.getSettings().setAllowUniversalAccessFromFileURLs(true);
-    webview.android.getSettings().setMediaPlaybackRequiresUserGesture(false);
-    webview.android.getSettings().setUseWideViewPort(true);
-    webview.android.getSettings().setDomStorageEnabled(true);
-    webview.android.setWebViewClient(new TNSWebViewClient());
-    webview.android.setWebChromeClient(new TNSWebChromeClient());
-  }
-}
+export const webViewLoaded = webViewHandler;

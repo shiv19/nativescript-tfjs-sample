@@ -8,7 +8,7 @@
 
   <GridLayout rows="*, auto" columns="1/2*, 1/2*">
 
-    <ListView row="0" col="0" colSpan="2" class="list-view" items="{{ examples }}" itemTap="{{ onItemTap }}" separatorColor="transparent">
+    <ListView id="listView" row="0" col="0" colSpan="2" class="list-view" items="{{ examples }}" itemTap="{{ onItemTap }}" separatorColor="transparent">
       <ListView.itemTemplate>
         <StackLayout orientation="horizontal">
           <Label class="fadeInAnimation list-icon h1" text="{{ icon }}"></Label>

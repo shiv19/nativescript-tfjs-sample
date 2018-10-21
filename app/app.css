@@ -33,6 +33,22 @@
     width: 100%;
 }
 
+.table-header {
+    font-size: 24;
+    font-weight: bold;
+    text-align: center;
+    border-width: 1;
+    border-color: lightgray;
+}
+
+.table-cell {
+    font-size: 20;
+    font-weight: bold;
+    text-align: center;
+    border-width: 1;
+    border-color: lightgray;
+}
+
 .fadeInAnimation {
     opacity: 0;
     animation-name: fadeIn;

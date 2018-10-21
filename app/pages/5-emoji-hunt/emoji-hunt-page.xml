@@ -1,8 +1,9 @@
-<Page xmlns="http://www.nativescript.org/tns.xsd" navigatedTo="onNavigatedTo">
+<Page xmlns="http://www.nativescript.org/tns.xsd">
   <Page.actionBar>
     <ActionBar class="action-bar" title="Emoji Hunt">
       <NavigationButton android.systemIcon="ic_menu_back" tap="goBack"/>
     </ActionBar>
   </Page.actionBar>
+
   <WebView loaded="webViewLoaded" src="https://emojiscavengerhunt.withgoogle.com" id="webView" />
 </Page>

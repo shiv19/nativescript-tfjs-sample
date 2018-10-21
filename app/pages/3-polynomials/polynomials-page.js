@@ -1,5 +1,5 @@
 const tf = require('@tensorflow/tfjs');
-const createViewModel = require("./polynomials-view-model").createViewModel;
+const createViewModel = require('./polynomials-view-model').createViewModel;
 const pageData = createViewModel();
 const generateData = require('./data').generateData;
 
@@ -118,10 +118,10 @@ async function learnCoefficients() {
   const chartPoints1 = await plotData(trainingData.xs, trainingData.ys)
 
   pageData.set('originalData', chartPoints1);
-  pageData.set('trueCoefficients', stringifyCoefficients(trueCoefficients));
+  pageData.set('trueCoefficients', getCoefficientsArray(trueCoefficients));
   
   // See what the predictions look like with random coefficients
-  pageData.set('randomCoefficients', stringifyCoefficients({
+  pageData.set('randomCoefficients', getCoefficientsArray({
     a: a.dataSync()[0],
     b: b.dataSync()[0],
     c: c.dataSync()[0],
@@ -137,7 +137,7 @@ async function learnCoefficients() {
   await train(trainingData.xs, trainingData.ys, numIterations);
 
   // See what the final results predictions are after training.
-  pageData.set('finalCoefficients', stringifyCoefficients({
+  pageData.set('finalCoefficients', getCoefficientsArray({
     a: a.dataSync()[0],
     b: b.dataSync()[0],
     c: c.dataSync()[0],
@@ -176,7 +176,11 @@ async function plotDataAndPredictions(xs, ys, preds) {
   return values;
 }
 
-function stringifyCoefficients(coeff) {
-  return `a=${coeff.a.toFixed(3)}, b=${coeff.b.toFixed(3)}, c=${
-          coeff.c.toFixed(3)},  d=${coeff.d.toFixed(3)}`;
+function getCoefficientsArray(coeff) {
+  return [
+    coeff.a.toFixed(3),
+    coeff.b.toFixed(3),
+    coeff.c.toFixed(3),
+    coeff.d.toFixed(3)
+  ];
 }

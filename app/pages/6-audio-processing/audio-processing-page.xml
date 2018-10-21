@@ -1,4 +1,4 @@
-<Page xmlns="http://www.nativescript.org/tns.xsd" navigatedTo="onNavigatedTo">
+<Page xmlns="http://www.nativescript.org/tns.xsd">
   <Page.actionBar>
     <ActionBar class="action-bar" title="Audio Processing">
       <NavigationButton android.systemIcon="ic_menu_back" tap="goBack"/>
