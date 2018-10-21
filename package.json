@@ -1,22 +1,30 @@
 {
-    "nativescript": {
-        "id": "org.nativescript.tFlow",
-        "tns-ios": {
-            "version": "4.2.0"
-        },
-        "tns-android": {
-            "version": "4.2.0"
-        }
+  "nativescript": {
+    "id": "org.nativescript.tFlow",
+    "tns-ios": {
+      "version": "5.0.0-rc-2018-10-17-161243-01"
     },
-    "description": "NativeScript Application",
-    "license": "SEE LICENSE IN <your-license-filename>",
-    "repository": "<fill-your-repository-here>",
-    "dependencies": {
-        "@tensorflow/tfjs": "^0.12.5",
-        "nativescript-theme-core": "~1.0.4",
-        "nativescript-ui-chart": "^3.8.0",
-        "nativescript-webview-interface": "^1.4.2",
-        "tns-core-modules": "~4.2.0"
-    },
-    "readme": "NativeScript Application"
+    "tns-android": {
+      "version": "5.0.0-rc-2018-10-18-172901-01"
+    }
+  },
+  "description": "NativeScript Application",
+  "license": "SEE LICENSE IN <your-license-filename>",
+  "repository": "<fill-your-repository-here>",
+  "dependencies": {
+    "@tensorflow/tfjs": "^0.13.2",
+    "nativescript-permissions": "^1.2.3",
+    "nativescript-theme-core": "~1.0.4",
+    "nativescript-ui-chart": "^3.9.0",
+    "nativescript-webview-interface": "^1.4.2",
+    "tns-core-modules": "^5.0.0-rc-2018-10-16-182917-07"
+  },
+  "readme": "NativeScript Application",
+  "devDependencies": {
+    "nativescript-dev-webpack": "^0.17.0-rc.0"
+  },
+  "scripts": {
+    "android": "tns run android --hmr",
+    "ios": "tns run ios --hmr"
+  }
 }

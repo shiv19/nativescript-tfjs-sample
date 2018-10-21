@@ -1,34 +1,19 @@
 const tf = require('@tensorflow/tfjs');
-const createViewModel = require("./regression-view-model").createViewModel;
+const createViewModel = require("./polynomials-view-model").createViewModel;
 const pageData = createViewModel();
 const generateData = require('./data').generateData;
 
-exports.onNavigatingTo = function (args) {
-    var page = args.object;
+exports.onNavigatingTo = function(args) {
+    const page = args.object;
     page.bindingContext = pageData;
 }
 
-exports.sampleOne = function() {
-    // Define a model for linear regression.
-    const model = tf.sequential();
-    model.add(tf.layers.dense({units: 1, inputShape: [1]}));
-
-    // Prepare the model for training: Specify the loss and the optimizer.
-    model.compile({loss: 'meanSquaredError', optimizer: 'sgd'});
-
-    // Generate some synthetic data for training.
-    const xs = tf.tensor2d([1, 2, 3, 4], [4, 1]);
-    const ys = tf.tensor2d([1, 3, 5, 7], [4, 1]);
-
-    // Train the model using the data.
-    model.fit(xs, ys, {epochs: 10}).then(() => {
-        // Use the model to do inference on a data point the model hasn't seen before:
-        model.predict(tf.tensor2d([5], [1, 1])).print();
-    });
-}
-
-exports.sampleTwo = function() {
+exports.onTrain = function() {
   learnCoefficients();
+};
+
+exports.goBack = function(args) {
+  args.object.page.frame.goBack();
 };
 
 /**
@@ -55,7 +40,8 @@ let a, b, c, d;
 
 // Step 2. Create an optimizer, we will use this later. You can play
 // with some of these values to see how the model performs.
-const numIterations = 75;
+const numIterations = 100;
+const numTrainingSet = 100;
 const learningRate = 0.5;
 const optimizer = tf.train.sgd(learningRate);
 
@@ -127,7 +113,7 @@ async function learnCoefficients() {
   c = tf.variable(tf.scalar(Math.random()));
   d = tf.variable(tf.scalar(Math.random()));
   const trueCoefficients = {a: -.8, b: -.2, c: .9, d: .5};
-  const trainingData = generateData(100, trueCoefficients);
+  const trainingData = generateData(numTrainingSet, trueCoefficients);
   // Plot original data
   const chartPoints1 = await plotData(trainingData.xs, trainingData.ys)
 

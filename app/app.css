@@ -1,21 +1,70 @@
-﻿/*
-In NativeScript, the app.css file is where you place CSS rules that
-you would like to apply to your entire application. Check out
-http://docs.nativescript.org/ui/styling for a full list of the CSS
-selectors and properties you can use to style UI components.
+﻿@import '~nativescript-theme-core/css/forest.css';
 
-/*
-In many cases you may want to use the NativeScript core theme instead
-of writing your own CSS rules. For a full list of class names in the theme
-refer to http://docs.nativescript.org/ui/theme. 
-The imported CSS rules must precede all other types of rules.
-*/
-@import '~nativescript-theme-core/css/forest.css';
+* {
+    font-family: Rubik;
+}
 
-/*
-The following CSS rule changes the font size of all UI
-components that have the btn class name.
-*/
 .btn {
     font-size: 18;
+}
+
+.fancy {
+    font-family: Lobster;
+}
+
+.fa {
+    font-family: FontAwesome;
+}
+
+.list-icon {
+    background-color: #efefef;
+    border-radius: 10;
+    padding: 10;
+    margin: 20;
+    margin-right: 0;
+    text-align: center;
+    vertical-align: center;
+}
+
+.list-text {
+    vertical-align: center;
+    padding-left: 20;
+    color: #555;
+    width: 100%;
+}
+
+.fadeInAnimation {
+    opacity: 0;
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.slideLeftAnimation {
+    animation-name: slideLeft;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes slideLeft {
+    0% {
+        transform: translate(300, 0);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
 }

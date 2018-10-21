@@ -1,0 +1,86 @@
+<html>
+
+<body>
+    <script src="./lib/tf.min.js"></script>
+    <script src="./lib/nativescript-webview-interface.js"></script>
+    <script>
+        (function () {
+            var oWebViewInterface = window.nsWebViewInterface;
+        })();
+
+        let model;
+        let _modelName;
+        let _debugMode = false;
+
+        function customLog(...args) {
+          if (_debugMode) {
+            console.log(args);
+          }
+        }
+
+        window.init = async function({
+          modelName,
+          debug
+        }) {
+          _modelName = modelName || 'my-model';
+          _debugMode = debug;
+          model = await tf.loadModel(`localstorage://${_modelName}`).catch(e => {
+            customLog(e);
+          });
+
+          if (model) {
+            customLog('model loaded successfully');
+
+            return true;
+          } else {
+            customLog('model not found, start fresh');
+
+            return false;
+          }
+        }
+
+        window.train = async function({
+          x_input,
+          y_input,
+          epochs
+        }) {
+          // Define a model for linear regression.
+          model = tf.sequential();
+          model.add(tf.layers.dense({units: 1, inputShape: [1]}));
+
+          // Prepare the model for training: Specify the loss and the optimizer.
+          model.compile({loss: 'meanSquaredError', optimizer: 'sgd'});
+
+          // Generate some synthetic data for training.
+          const xs = tf.tensor1d(x_input);
+          const ys = tf.tensor1d(y_input);
+
+          customLog('Training...');
+          // Train the model using the data.
+          await model.fit(xs, ys, {epochs}).catch(e => {
+            customLog(e);
+          });
+
+          model.save(`localstorage://${_modelName}`).then((r) => {
+            customLog('model saved', r);
+          }).catch((e) => {
+            customLog('could not save model');
+          })
+
+          customLog('training complete');
+
+          return true;
+        }
+
+        window.predict = async function(input) {
+          const result = model.predict(
+            tf.tensor2d([+input], [1, 1])
+          ).dataSync();
+          
+          return result[0];
+        }
+
+    </script>
+</body>
+
+</html>

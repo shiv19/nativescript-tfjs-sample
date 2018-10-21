@@ -1,0 +1,28 @@
+<Page xmlns="http://www.nativescript.org/tns.xsd" navigatedTo="onNavigatedTo" loaded="loaded">
+  <Page.actionBar>
+    <ActionBar class="action-bar" title="Starting To Walk">
+      <NavigationButton android.systemIcon="ic_menu_back" tap="goBack"/>
+    </ActionBar>
+  </Page.actionBar>
+  <ScrollView>
+    <StackLayout class="p-20 form">
+      <Label textWrap="true" class="text-center h1" text="Let's train a simple model and persist it! 💁🏻‍♂️" />
+      <Button class="btn btn-primary" text="Train" tap="onTrain" />
+        
+      <TextField class="input input-rounded m-20 text-center"
+        id="input"
+        hint="Enter value for X"
+        text="{{ input }}"
+        isEnabled="{{ trainingComplete ? 'true' : 'false' }}"
+        fontSize="30"
+        keyboardType="number"></TextField>
+      <Button class="btn btn-primary"
+        isEnabled="{{ trainingComplete ? 'true' : 'false' }}"
+        text="Predict"
+        tap="onPredict" />
+
+      <Label class="h1 text-center" text="{{ output }}" textWrap="true"></Label>
+      <WebView loaded="webViewLoaded" height="0" id="webView" />
+    </StackLayout>
+  </ScrollView>
+</Page>

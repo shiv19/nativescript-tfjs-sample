@@ -1,20 +1,27 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" 
-    xmlns:chart="nativescript-ui-chart"
-    navigatingTo="onNavigatingTo" class="page">
+  xmlns:chart="nativescript-ui-chart" navigatedTo="onNavigatedTo" class="page">
 
-    <Page.actionBar>
-        <ActionBar title="TensorFlow JS in NativeScript" class="action-bar">
-        </ActionBar>
-    </Page.actionBar>
+  <Page.actionBar>
+    <ActionBar title="TensorFlow JS in NativeScript" class="action-bar">
+    </ActionBar>
+  </Page.actionBar>
 
-    <StackLayout class="p-20">
-        <Button class="btn btn-primary"
-            textTransform="none"
-            tap="gotoRegression"
-            text="Goto Regression Sample"></Button>
-        <Button class="btn btn-primary"
-            tap="gotoClassification"
-            textTransform="none"
-            text="Goto Classification Sample"></Button>
-    </StackLayout>
+  <GridLayout rows="*, auto" columns="1/2*, 1/2*">
+
+    <ListView row="0" col="0" colSpan="2" class="list-view" items="{{ examples }}" itemTap="{{ onItemTap }}" separatorColor="transparent">
+      <ListView.itemTemplate>
+        <StackLayout orientation="horizontal">
+          <Label class="fadeInAnimation list-icon h1" text="{{ icon }}"></Label>
+          <Label class="slideLeftAnimation list-text fancy h1" text="{{ name }}"></Label>
+        </StackLayout>
+      </ListView.itemTemplate>
+    </ListView>
+
+    <!-- Arrow Left -->
+    <Button id="prevBtn" row="1" col="0" class="fa btn btn-primary" isEnabled="false" text="&#xf060;" tap="{{ prev }}"></Button>
+    <!-- Arrow Right -->
+    <Button id="nextBtn" row="1" col="1" class="fa btn btn-primary" text="&#xf061;" tap="{{ next }}"></Button>
+
+  </GridLayout>
+
 </Page>

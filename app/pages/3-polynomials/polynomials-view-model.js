@@ -1,7 +1,7 @@
-var Observable = require("data/observable").Observable;
+import { Observable } from "data/observable";
 
-function createViewModel() {
-    var viewModel = new Observable();
+export function createViewModel() {
+    const viewModel = new Observable();
     viewModel.scatterSource = [];
     viewModel.predictionBefore = [];
     viewModel.predictionAfter = [];
@@ -11,5 +11,3 @@ function createViewModel() {
 
     return viewModel;
 }
-
-exports.createViewModel = createViewModel;

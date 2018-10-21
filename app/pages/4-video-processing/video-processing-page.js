@@ -1,10 +1,10 @@
-const WebViewInterface = require('nativescript-webview-interface').WebViewInterface;
+import { WebViewInterface } from 'nativescript-webview-interface';
 let webViewInterface;
 let page;
 
-const isAndroid = require('platform').isAndroid;
+import { isAndroid } from 'platform';
 
-function onNavigatedTo(args) {
+export function onNavigatedTo(args) {
     if (args.isBackNavigation) {
       return;
     }
@@ -15,10 +15,14 @@ function onNavigatedTo(args) {
     setupWebViewInterface(page);
 }
 
+export function goBack(args) {
+  args.object.page.frame.goBack();
+};
+
 // Initializes plugin with a webView
 function setupWebViewInterface(page){
-    var webView = page.getViewById('webView');
-    webViewInterface = new WebViewInterface(webView, '~/www/index.html');
+    const webView = page.getViewById('webView');
+    webViewInterface = new WebViewInterface(webView, '~/www/video-processing.html');
 
     setTimeout(() => {
       webViewInterface.callJSFunction('app', null, async function(net){
@@ -27,13 +31,14 @@ function setupWebViewInterface(page){
     }, 3000);
 }
 
-exports.webViewLoaded = function (args) {
-  var webview = args.object;
-  var TNSWebViewClient =
+export function webViewLoaded (args) {
+  const webview = args.object;
+
+  if (isAndroid) {
+    const TNSWebViewClient =
     android.webkit.WebViewClient.extend({
       shouldOverrideUrlLoading: function (view, url) {
         if (url != null && url.startsWith("http://")) {
-          console.log(url);
           // use openUrl form utils module to open the page in a browser
           return true;
         } else {
@@ -42,13 +47,12 @@ exports.webViewLoaded = function (args) {
       }
 
     });
-  var TNSWebChromeClient =
-    android.webkit.WebChromeClient.extend({
-      onPermissionRequest: function (request) {
-        request.grant(request.getResources());
-      }
-    });
-  if (isAndroid) {
+    const TNSWebChromeClient =
+      android.webkit.WebChromeClient.extend({
+        onPermissionRequest: function (request) {
+          request.grant(request.getResources());
+        }
+      });
     webview.android.getSettings().setDisplayZoomControls(false);
     webview.android.getSettings().setBuiltInZoomControls(false);
     webview.android.getSettings().setAllowFileAccessFromFileURLs(true);
@@ -60,5 +64,3 @@ exports.webViewLoaded = function (args) {
     webview.android.setWebChromeClient(new TNSWebChromeClient());
   }
 }
-
-exports.onNavigatedTo = onNavigatedTo;

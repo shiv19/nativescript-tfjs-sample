@@ -43,5 +43,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>We need permission to use camera so that it can be used to train images</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need permission to use gallery so that image data can be stored</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need permission to use microphone to generate music after analysing your voice</key>
 </dict>
 </plist>

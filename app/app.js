@@ -4,7 +4,7 @@ You can use this file to perform app-level initialization, but the primary
 purpose of the file is to pass control to the app’s first module.
 */
 
-var application = require("application");
+const application = require('application');
 
 //noinspection JSUnresolvedVariable,JSUnusedLocalSymbols
 global.setImmediate = setTimeout;
@@ -23,8 +23,8 @@ global.process = {
     node: '10.0'
   }
 };
-process.versions = {};
-process.versions.node = '10.0';
+// global.process.versions = {};
+// global.process.versions.node = '10.0';
 
 application.run({ moduleName: "app-root" });
 
