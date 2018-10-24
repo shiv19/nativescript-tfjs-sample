@@ -106,6 +106,7 @@ export async function onNavigatedTo({ isBackNavigation, object: page }) {
 
     await permissions.requestPermissions([
         android.Manifest.permission.CAMERA,
+        android.Manifest.permission.READ_EXTERNAL_STORAGE,
         android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
         android.Manifest.permission.RECORD_AUDIO,
         android.Manifest.permission.MODIFY_AUDIO_SETTINGS
