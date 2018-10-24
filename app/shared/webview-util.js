@@ -31,5 +31,17 @@ export function webViewHandler (args) {
     webview.android.getSettings().setDomStorageEnabled(true);
     webview.android.setWebViewClient(new TNSWebViewClient());
     webview.android.setWebChromeClient(new TNSWebChromeClient());
+
+    // Hide the scrollbars, but not disable scrolling:
+    webview.android.setVerticalScrollBarEnabled(false);
+    webview.android.setHorizontalScrollBarEnabled(false);
+
+    // Disable scrolling
+    let myListener = new android.view.View.OnTouchListener({
+      onTouch: function (view, event) {
+        return (event.getAction() == android.view.MotionEvent.ACTION_MOVE);
+      }
+    })
+    webview.android.setOnTouchListener(myListener);
   }
 }

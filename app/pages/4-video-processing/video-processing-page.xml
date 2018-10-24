@@ -1,12 +1,28 @@
-<Page xmlns="http://www.nativescript.org/tns.xsd" navigatedTo="onNavigatedTo">
+<Page xmlns="http://www.nativescript.org/tns.xsd" navigatedTo="onNavigatedTo" loaded="loaded">
   <Page.actionBar>
     <ActionBar class="action-bar" title="Video Processing">
       <NavigationButton android.systemIcon="ic_menu_back" tap="goBack"/>
     </ActionBar>
   </Page.actionBar>
-  <StackLayout>
-    <WebView loaded="webViewLoaded" visibility="{{ loaded ? 'visible' : 'collapsed' }}" height="600" id="webView" />
-    <Label id="className"></Label>
-    <Label id="probability"></Label>
-  </StackLayout>
+  <GridLayout>
+    <ScrollView>
+      <GridLayout class="form" visibility="{{ mobileNetLoaded ? 'visible' : 'collapsed' }}" rows="450, auto, auto, auto, auto, auto, auto" columns="1/2*, 1/2*">
+        <WebView row="0" col="0" colSpan="2" id="webView" width="250" horizontalAlignment="center" loaded="webViewLoaded" visibility="{{ loaded ? 'visible' : 'collapsed' }}"></WebView>
+        <Label row="1" col="0" colSpan="2" class="h2 text-center" text="Enter a label, tap record. Tap stop when you're done recording." textWrap="true"></Label>
+
+        <TextField row="2" col="0" colSpan="2" flexGrow="1" class="input input-border m-x-20" borderRadius="10" text="{{ label }}" hint="Enter Label"></TextField>
+          
+        <Button row="3" col="0" class="btn btn-primary" isEnabled="{{ !isRecording }}" text="Record" tap="onRecord"></Button>
+        <Button row="3" col="1" class="btn btn-primary" isEnabled="{{ isRecording }}" text="Stop" tap="onStop"></Button>
+
+        <Label row="4" col="0" colSpan="2" class="h2 p-l-20" text="Prediction:" textWrap="true"></Label>
+        <Label row="5" col="0" colSpan="2" class="h2 text-center" text="{{ prediction }}"></Label>
+        <Label row="6" col="0" colSpan="2" class="h2 text-center" text="{{ probability }}"></Label>
+      </GridLayout>
+    </ScrollView>
+    <StackLayout verticalAlignment="center" visibility="{{ !mobileNetLoaded ? 'visible' : 'collapsed' }}">
+      <ActivityIndicator width="50" height="50" busy="true" />
+      <Label class="text-center" text="Loading Mobilenet" textWrap="true" />
+    </StackLayout>
+  </GridLayout>
 </Page>

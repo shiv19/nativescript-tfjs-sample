@@ -1,11 +1,7 @@
 <html>
-
 <body>
-    <video autoplay playsinline muted id="webcam" width="224" height="224"></video>
-    <button id="class-a">Add A</button>
-    <button id="class-b">Add B</button>
-    <button id="class-c">Add C</button>
-    <div id="console"></div>
+    <video autoplay playsinline muted id="webcam"
+      width="300" height="450"></video>
     <script>
       async function setupWebcam() {
           return new Promise((resolve, reject) => {
@@ -14,10 +10,11 @@
                 navigatorAny.webkitGetUserMedia || navigatorAny.mozGetUserMedia ||
                 navigatorAny.msGetUserMedia;
             if (navigator.getUserMedia) {
-              navigator.getUserMedia({video: true},
+              navigator.getUserMedia({video: {
+                facingMode: 'environment'
+              }},
                 stream => {
                   webcamElement.srcObject = stream;
-                  webcamElement.addEventListener('loadeddata',  () => resolve(), false);
                 },
                 error => reject());
             } else {
@@ -40,28 +37,45 @@
         })();
 
         let net;
+        let _predClasses = new Set();
+        let _debugMode = true;
 
-        window.app = async function() {
-          console.log('Loading mobilenet..');
+        function debugLog(...args) {
+          if (_debugMode) {
+            console.log(args);
+          }
+        }
+
+        // Reads an image from the webcam and associates it with a specific class
+        // index.
+        window.addSample = className => {
+          // Get the intermediate activation of MobileNet 'conv_preds' and pass that
+          // to the KNN classifier.
+          const activation = net.infer(webcamElement, 'conv_preds');
+
+          // Pass the intermediate activation to the classifier.
+          _predClasses.add(className);
+          classifier.addExample(activation, [..._predClasses].indexOf(className));
+
+          debugLog('added an example for', className);
+        };
+
+        window.init = async function({
+          debug
+        }) {
+          _debugMode = debug;
+          debugLog('Loading mobilenet..');
 
           // Load the model.
-          net = await mobilenet.load();
+          net = await mobilenet.load().catch(e => {
+            debugLog('Error loading mobile net', e);
+            nsWebViewInterface.emit('mobileNetReady', false);
+          });
 
-          // Reads an image from the webcam and associates it with a specific class
-          // index.
-          const addExample = classId => {
-            // Get the intermediate activation of MobileNet 'conv_preds' and pass that
-            // to the KNN classifier.
-            const activation = net.infer(webcamElement, 'conv_preds');
-
-            // Pass the intermediate activation to the classifier.
-            classifier.addExample(activation, classId);
-          };
-
-          // When clicking a button, add an example for that class.
-          document.getElementById('class-a').addEventListener('click', () => addExample(0));
-          document.getElementById('class-b').addEventListener('click', () => addExample(1));
-          document.getElementById('class-c').addEventListener('click', () => addExample(2));
+          if (net) {
+            debugLog('Loaded mobilenet..');
+            nsWebViewInterface.emit('mobileNetReady', true);
+          }
 
           while (true) {
             if (classifier.getNumClasses() > 0) {
@@ -70,11 +84,12 @@
               // Get the most likely class and confidences from the classifier module.
               const result = await classifier.predictClass(activation);
 
-              const classes = ['A', 'B', 'C'];
-              document.getElementById('console').innerText = `
-                prediction: ${classes[result.classIndex]}\n
-                probability: ${result.confidences[result.classIndex]}
-              `;
+              const pred = {
+                prediction: [..._predClasses][result.classIndex],
+                probability: result.confidences[result.classIndex]
+              }
+
+              nsWebViewInterface.emit('onPredict', pred);
             }
 
             await tf.nextFrame();

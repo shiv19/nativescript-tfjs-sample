@@ -12,7 +12,7 @@
         let _modelName;
         let _debugMode = false;
 
-        function customLog(...args) {
+        function debugLog(...args) {
           if (_debugMode) {
             console.log(args);
           }
@@ -25,15 +25,15 @@
           _modelName = modelName || 'my-model';
           _debugMode = debug;
           model = await tf.loadModel(`localstorage://${_modelName}`).catch(e => {
-            customLog(e);
+            debugLog(e);
           });
 
           if (model) {
-            customLog('model loaded successfully');
+            debugLog('model loaded successfully');
 
             return true;
           } else {
-            customLog('model not found, start fresh');
+            debugLog('model not found, start fresh');
 
             return false;
           }
@@ -55,19 +55,19 @@
           const xs = tf.tensor1d(x_input);
           const ys = tf.tensor1d(y_input);
 
-          customLog('Training...');
+          debugLog('Training...');
           // Train the model using the data.
           await model.fit(xs, ys, {epochs}).catch(e => {
-            customLog(e);
+            debugLog(e);
           });
 
           model.save(`localstorage://${_modelName}`).then((r) => {
-            customLog('model saved', r);
+            debugLog('model saved', r);
           }).catch((e) => {
-            customLog('could not save model');
+            debugLog('could not save model');
           })
 
-          customLog('training complete');
+          debugLog('training complete');
 
           return true;
         }
