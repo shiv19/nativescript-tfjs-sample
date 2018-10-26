@@ -1,4 +1,4 @@
-<Page xmlns="http://www.nativescript.org/tns.xsd">
+<Page xmlns="http://www.nativescript.org/tns.xsd" class="page">
   <Page.actionBar>
     <ActionBar class="action-bar" title="Emoji Hunt">
       <NavigationButton android.systemIcon="ic_menu_back" tap="goBack"/>

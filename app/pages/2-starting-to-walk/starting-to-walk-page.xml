@@ -1,4 +1,4 @@
-<Page xmlns="http://www.nativescript.org/tns.xsd" navigatedTo="onNavigatedTo" loaded="loaded">
+<Page xmlns="http://www.nativescript.org/tns.xsd" class="page" navigatedTo="onNavigatedTo" loaded="loaded">
   <Page.actionBar>
     <ActionBar class="action-bar" title="Starting To Walk">
       <NavigationButton android.systemIcon="ic_menu_back" tap="goBack"/>

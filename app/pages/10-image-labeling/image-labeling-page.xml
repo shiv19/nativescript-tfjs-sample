@@ -1,0 +1,56 @@
+<Page xmlns="http://www.nativescript.org/tns.xsd" loaded="onLoaded" navigatedTo="onNavigatedTo">
+  <Page.actionBar>
+    <ActionBar class="action-bar" title="Image Labelling">
+      <NavigationButton android.systemIcon="ic_menu_back" tap="goBack"/>
+    </ActionBar>
+  </Page.actionBar>
+
+  <GridLayout xmlns:FirebaseMLKitImageLabelling="nativescript-plugin-firebase/mlkit/imagelabeling">
+    <FirebaseMLKitImageLabelling:MLKitImageLabeling
+        width="100%"
+        height="100%"
+        torchOn="{{ torchOn }}"
+        confidenceThreshold="0.6"
+        scanResult="onImageLabelingResult">
+    </FirebaseMLKitImageLabelling:MLKitImageLabeling>
+
+    <GridLayout rows="*, 320, *" columns="*, 5/6*, *">
+      <Label class="mask" row="0" col="0" colSpan="3"></Label>
+      <Label class="mask" row="2" col="0" colSpan="3"></Label>
+      <Label class="mask" row="1" col="0"></Label>
+      <Label class="mask" row="1" col="2"></Label>
+      <GridLayout row="1" col="1" rows="1/6*, *, 1/6*" columns="1/6*, *, 1/6*">
+        <Label class="frame-top-left" row="0" col="0"></Label>
+        <Label class="frame-top-right" row="0" col="2"></Label>
+        <Label class="frame-bottom-left" row="2" col="0"></Label>
+        <Label class="frame-bottom-right" row="2" col="2"></Label>
+        <StackLayout class="swing" row="0" col="0" colSpan="3">
+          <Label height="1" marginBottom="1" borderBottomWidth="1" borderColor="rgba(81, 184, 237, 0.1)"></Label>
+          <Label height="1" marginBottom="1" borderBottomWidth="1" borderColor="rgba(81, 184, 237, 0.2)"></Label>
+          <Label height="1" marginBottom="1" borderBottomWidth="1" borderColor="rgba(81, 184, 237, 0.3)"></Label>
+          <Label height="1" marginBottom="1" borderBottomWidth="1" borderColor="rgba(81, 184, 237, 0.4)"></Label>
+          <Label height="1" marginBottom="1" borderBottomWidth="1" borderColor="rgba(81, 184, 237, 0.5)"></Label>
+          <Label height="1" marginBottom="1" borderBottomWidth="1" borderColor="rgba(81, 184, 237, 0.6)"></Label>
+          <Label height="1" marginBottom="1" borderBottomWidth="1" borderColor="rgba(81, 184, 237, 0.7)"></Label>
+          <Label height="1" marginBottom="1" borderBottomWidth="1" borderColor="rgba(81, 184, 237, 0.8)"></Label>
+          <Label height="1" marginBottom="1" borderBottomWidth="1" borderColor="rgba(81, 184, 237, 0.9)"></Label>
+          <Label height="1" marginBottom="1" borderBottomWidth="1" borderColor="rgba(81, 184, 237, 1)"></Label>
+        </StackLayout>
+      </GridLayout>
+      <ListView separatorColor="transparent" row="0" rowSpan="3" col="0" colSpan="3" items="{{ labels }}" class="m-t-20" backgroundColor="transparent">
+        <ListView.itemTemplate>
+          <GridLayout columns="3*, 2*">
+            <Label col="0" class="mlkit-result h2" textWrap="true" text="{{ text }}"></Label>
+            <Label col="1" class="mlkit-result h2" textWrap="true" text="{{ confidence }}"></Label>
+          </GridLayout>
+        </ListView.itemTemplate>
+      </ListView>
+    </GridLayout>
+
+    <GridLayout rows="auto" columns="auto, auto" horizontalAlignment="right" class="m-t-4 m-r-8">
+      <Label col="0" text="Torch" class="c-white p-t-5 p-r-10"></Label>
+      <Switch col="1" checked="{{ torchOn }}"></Switch>
+    </GridLayout>
+
+  </GridLayout>
+</Page>

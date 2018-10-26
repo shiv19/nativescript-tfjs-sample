@@ -6,12 +6,27 @@ import {
     Polynomials,
     VideoProcessing,
     EmojiHunt,
-    AudioProcessing
+    AudioProcessing,
+    TextRecognition,
+    BarcodeScanning,
+    FaceDetection,
+    ImageLabeling
 } from '~/shared/routes';
 
 import { isAndroid } from 'platform';
 
 import * as permissions from 'nativescript-permissions';
+
+import * as firebase from 'nativescript-plugin-firebase';
+
+firebase.init({}).then(
+    () => {
+      console.log("Firebase is ready");
+    },
+    error => {
+      console.log("firebase.init error: " + error);
+    }
+);
 
 const availablePages = [
     {
@@ -49,6 +64,29 @@ if (isAndroid) {
     ]
   )
 }
+
+availablePages.push(...[
+    {
+        name: 'Text Recognition',
+        icon: '🗒',
+        route: TextRecognition
+    },
+    {
+        name: 'Barcode Scanning',
+        icon: '🔍',
+        route: BarcodeScanning
+    },
+    {
+        name: 'Face Detection',
+        icon: '🤪',
+        route: FaceDetection
+    },
+    {
+        name: 'Image Labelling',
+        icon: '🐶',
+        route: ImageLabeling
+    },
+])
 
 export async function onNavigatedTo({ isBackNavigation, object: page }) {
     if (isBackNavigation) {

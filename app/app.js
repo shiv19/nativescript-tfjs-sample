@@ -4,7 +4,8 @@ You can use this file to perform app-level initialization, but the primary
 purpose of the file is to pass control to the app’s first module.
 */
 
-const application = require('application');
+import * as application from 'application';
+require('nativescript-plugin-firebase');
 
 //noinspection JSUnresolvedVariable,JSUnusedLocalSymbols
 global.setImmediate = setTimeout;

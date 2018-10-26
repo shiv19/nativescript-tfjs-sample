@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "9900400973",
+    "firebase_url": "https://tflow-19.firebaseio.com",
+    "project_id": "tflow-19",
+    "storage_bucket": "tflow-19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9900400973:android:901ea082fd421920",
+        "android_client_info": {
+          "package_name": "org.nativescript.tFlow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9900400973-f2kapipcn7l6oamf0olmv5ho97pf0r6u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp4rWZnoeV71aKkMulKakbWgDHcSsmwtQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

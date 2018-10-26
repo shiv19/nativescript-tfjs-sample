@@ -5,7 +5,7 @@
       "version": "5.0.0-rc-2018-10-17-161243-01"
     },
     "tns-android": {
-      "version": "5.0.0-rc-2018-10-18-172901-01"
+      "version": "5.0.0-rc-2018-10-25-115200-01"
     }
   },
   "description": "NativeScript Application",
@@ -14,8 +14,9 @@
   "dependencies": {
     "@tensorflow/tfjs": "^0.13.2",
     "nativescript-permissions": "^1.2.3",
+    "nativescript-plugin-firebase": "^6.8.1",
     "nativescript-theme-core": "~1.0.4",
-    "nativescript-ui-chart": "^3.9.0",
+    "nativescript-ui-chart": "^3.9.1",
     "nativescript-webview-interface": "^1.4.2",
     "tns-core-modules": "^5.0.0-rc-2018-10-16-182917-07"
   },
