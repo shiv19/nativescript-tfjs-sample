@@ -2,4 +2,6 @@
 
 This project demonstrates how to use Tensorflow JS in NativeScript
 
-WIP, more documentation coming soon
+The documentation is WIP, feel free to explore the code 
+
+NativeScript 5.0rc was used to make this project.
