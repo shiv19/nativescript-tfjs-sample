@@ -24,8 +24,6 @@ global.process = {
     node: '10.0'
   }
 };
-// global.process.versions = {};
-// global.process.versions.node = '10.0';
 
 application.run({ moduleName: 'app-root' });
 
