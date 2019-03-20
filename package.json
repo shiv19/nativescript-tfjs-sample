@@ -14,7 +14,7 @@
   "dependencies": {
     "@tensorflow/tfjs": "^0.13.2",
     "nativescript-permissions": "^1.2.3",
-    "nativescript-plugin-firebase": "^6.8.1",
+    "nativescript-plugin-firebase": "^7.4.1",
     "nativescript-theme-core": "~1.0.4",
     "nativescript-ui-chart": "^3.9.1",
     "nativescript-webview-interface": "^1.4.2",

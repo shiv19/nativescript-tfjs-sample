@@ -8,7 +8,10 @@ Documentation - WIP
 - Clone this repo
 - Create a firebase app, and download your google-services.json
 - npm i
-- npm run android
+- run this via
+    - npm run android 
+    - npm run ios
+
 
 That's about it, you're good to go. Explore the NativeScript + TFjs examples.
 
